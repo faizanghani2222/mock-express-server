@@ -4,14 +4,14 @@ const User=require("./user.model");
 
 
 app.post("/register",async(req,res)=>{
-  const {name,email,password}=req.body
-   try{ 
+    try{ 
+    const {name,email,password}=req.body
     let user = new User({name,email, password });
     user = await user.save();
     res.send(user)
     }
     catch(e){
-        console.log(e)
+        
         res.status(401).send({ message: "Signup Failed",error:e })
     }
 })
