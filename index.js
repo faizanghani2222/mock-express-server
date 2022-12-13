@@ -20,6 +20,5 @@ app.use("/calculateEMI",emiRouter)
 
 
 app.listen(port,async ()=>{
-    await mongoose.connect(Database);
-    console.log("started")
+    await mongoose.connect("mongodb+srv://faizanghani2222:27102001@cluster0.4knlafc.mongodb.net/?retryWrites=true&w=majority");
 })
