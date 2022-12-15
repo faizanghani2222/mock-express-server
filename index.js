@@ -19,5 +19,5 @@ app.use(bodyParser.json());
 app.use("/list",listRouter)
 
 app.listen(port,async ()=>{
-    await mongoose.connect(`${Database}`);
+    await mongoose.connect("mongodb+srv://faizanghani2222:27102001@cluster0.4knlafc.mongodb.net/?retryWrites=true&w=majority");
 })
