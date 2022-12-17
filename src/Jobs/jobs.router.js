@@ -67,6 +67,17 @@ app.get("/",async (req,res)=>{
     }
 })
 
+
+app.get("/all",async(req,res)=>{
+   try{ let d=await Jobs.find()
+    res.send(d.length) 
+    }
+    catch(e){
+        res.status(404).send({error:e})
+    }
+})
+
+
 app.post("/",async(req,res)=>{
     try{
         let data=req.body
