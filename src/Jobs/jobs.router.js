@@ -72,8 +72,7 @@ app.get("/all",async(req,res)=>{
    try{ 
     let d=await Jobs.find()
           res.send(d) 
-    }
-    catch(e){
+    }catch(e){
         res.status(401).send({error:e})
     }
 })
