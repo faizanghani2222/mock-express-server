@@ -68,10 +68,62 @@ app.get("/",async (req,res)=>{
 })
 
 
-app.get("/all",async(req,res)=>{
-   try{ 
-    let d=await Jobs.find()
+app.get("/all",async (req,res)=>{
+    try{
+        
+        if(req.query.search){
+            let search=req.query.search
+            let d=await Jobs.find({language:search})
+            res.send(d) 
+        }
+        
+        else if(req.query){
+            
+            if(req.query.role && req.query.sortby){
+                let sort=req.query.sort==="asc"?1:-1
+                let obj={
+                    postedAt:sort
+                }
+                let filter=req.query.role
+               let d=await Jobs.find({role:filter}).sort(obj)
+               res.send(d) 
+            }
+
+
+            else if(req.query.role){
+            let filter=req.query.role
+            let d=await Jobs.find({role:filter})
+            res.send(d) 
+            }
+
+
+             else if(req.query.sortby){
+                let d=await Jobs.find()
+                let s=req.query.sortby
+                if(s==="asc"){
+                    d=d.sort((a,b)=>{
+                        return new Date(a.postedAt) - new Date(b.postedAt)
+                    })
+                }else if(s==="dsc"){
+                    d=d.sort((a,b)=>{
+                        return new Date(b.postedAt) - new Date(a.postedAt)
+                    })
+                }
+                res.send(d)
+                }
+                
+                
+                else{
+                   let d=await Jobs.find()
+                    res.send(d)   
+                }
+          
+           
+           
+        }else{
+          let d=await Jobs.find().skip(start).limit(limit)
           res.send(d) 
+        }
     }catch(e){
         res.status(401).send({error:e})
     }
