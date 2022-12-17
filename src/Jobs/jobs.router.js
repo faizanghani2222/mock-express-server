@@ -69,8 +69,9 @@ app.get("/",async (req,res)=>{
 
 
 app.get("/all",async(req,res)=>{
-   try{ let d=await Jobs.find()
-    res.send(d.length) 
+   try{ 
+    let d=await Jobs.find().skip(start).limit(limit)
+          res.send(d) 
     }
     catch(e){
         res.status(404).send({error:e})
