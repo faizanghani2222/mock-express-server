@@ -74,7 +74,7 @@ app.get("/all",async(req,res)=>{
           res.send(d) 
     }
     catch(e){
-        res.status(404).send({error:e})
+        res.status(401).send({error:e})
     }
 })
 
