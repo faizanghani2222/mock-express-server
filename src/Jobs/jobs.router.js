@@ -4,18 +4,38 @@ const app=express.Router()
 
 app.get("/",async (req,res)=>{
     try{
-        let d=await Jobs.find()
+        let page=parseInt(req.query.page)-1 || 0
+        let limit=parseInt(req.query.limit) ||10
+        let start= page* limit;
+        
         if(req.query.search){
             let search=req.query.search
-            d=await Jobs.find({language:search})
+            let d=await Jobs.find({language:search}).skip(start).limit(limit)
             res.send(d) 
         }
+        
         else if(req.query){
-            if(req.query.role){
-            let filter=req.query.role
-            d=await Jobs.find({role:filter})
+            
+            if(req.query.role && req.query.sortby){
+                let sort=req.query.sort==="asc"?1:-1
+                let obj={
+                    postedAt:sort
+                }
+                let filter=req.query.role
+               let d=await Jobs.find({role:filter}).sort(obj).skip(start).limit(limit)
+               res.send(d) 
             }
-            if(req.query.sortby){
+
+
+            else if(req.query.role){
+            let filter=req.query.role
+            let d=await Jobs.find({role:filter}).skip(start).limit(limit)
+            res.send(d) 
+            }
+
+
+             else if(req.query.sortby){
+                let d=await Jobs.find()
                 let s=req.query.sortby
                 if(s==="asc"){
                     d=d.sort((a,b)=>{
@@ -26,9 +46,20 @@ app.get("/",async (req,res)=>{
                         return new Date(b.postedAt) - new Date(a.postedAt)
                     })
                 }
-            }
-            res.send(d) 
+                d=d.slice(start,(start+limit))
+                res.send(d)
+                }
+                
+                
+                else{
+                   let d=await Jobs.find().skip(start).limit(limit)
+                    res.send(d)   
+                }
+          
+           
+           
         }else{
+          let d=await Jobs.find().skip(start).limit(limit)
           res.send(d) 
         }
     }catch(e){
