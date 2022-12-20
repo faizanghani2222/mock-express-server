@@ -2,7 +2,8 @@ const express=require("express")
 const mongoose=require("mongoose")
 const cors=require("cors")
 const bodyParser=require("body-parser")
-const jobsRouter=require("./src/Jobs/jobs.router")
+const userRouter=require("./src/Users/user.router")
+const playRouter=require("./src/Playzone/playzone.router")
 require('dotenv').config();
 
 
@@ -15,7 +16,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.use("/jobs",jobsRouter)
+app.use("/user",userRouter)
+app.use("/playzone",playRouter)
 
 app.listen(port,async ()=>{
     await mongoose.connect("mongodb+srv://faizanghani2222:27102001@cluster0.4knlafc.mongodb.net/?retryWrites=true&w=majority");
