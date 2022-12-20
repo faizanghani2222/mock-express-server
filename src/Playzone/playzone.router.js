@@ -5,7 +5,7 @@ const app=express.Router()
 app.post("/",async(req,res)=>{
     try{
         let {name,difficulty}=req.body
-        let words=["karlmarx"," sesquipedalian","ethopia","ignominious","mischievous","squirrel","argentina","subjective","phenomenon","onomatopoeia","supercalifragilisticexpialidocious","worcestershire","quinoa","temperature","scissors","anemone","isthmus","colonel","vetarian","waterpickle","successful","squirrel","masaitribe"]
+        let words=["karlmarx","sesquipedalian","ethopia","ignominious","mischievous","squirrel","argentina","subjective","phenomenon","onomatopoeia","supercalifragilisticexpialidocious","worcestershire","quinoa","temperature","scissors","anemone","isthmus","colonel","vetarian","waterpickle","successful","squirrel","masaitribe"]
         if(difficulty==="low"){
             res.send({name:name,time:30,words:words})
         }
