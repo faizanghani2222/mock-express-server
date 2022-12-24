@@ -14,6 +14,16 @@ app.post("/",async(req,res)=>{
     }
 })
 
+app.patch("/:id",async(req,res)=>{
+    try{
+        let id=req.params.id
+        let t=await Ticket.findByIdAndUpdate(id,{bookmark:true})
+        res.send({message:"success"})
+    }catch(e){
+        res.status(401).send({error:e})
+    }
+})
+
 app.get("/",async(req,res)=>{
     try{
         let data

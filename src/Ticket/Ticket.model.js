@@ -4,6 +4,7 @@ const ticketSchema=new mongoose.Schema({
     title:{type:String,required:true},
     category:{type:String,required:true},
     message:{type:String,required:true},
+    bookmark:{type:Boolean,default:false},
     timeStamp:{type:Number,default:Date.now()}
 })
 
